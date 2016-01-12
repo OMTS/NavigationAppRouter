@@ -5,11 +5,30 @@
 [![License](https://img.shields.io/cocoapods/l/NavigationAppRouter.svg?style=flat)](http://cocoapods.org/pods/NavigationAppRouter)
 [![Platform](https://img.shields.io/cocoapods/p/NavigationAppRouter.svg?style=flat)](http://cocoapods.org/pods/NavigationAppRouter)
 
+## Overview
+
+NavigationAppRouter is a class, written in Swift, that allows user to choose his prefered navigation app to go to a place.
+
+Third party navigation apps supported:
+	 - Google Maps,
+	 - Waze,
+	 - Citymapper.
+
 ## Usage
+
+```Swift
+import NavigationAppRouter
+
+let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 48.867460, longitude: 2.346767), addressDictionary: nil)
+
+NavigationAppRouter.goToPlace(placemark, fromViewController: viewController)
+```
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+* iOS8
 
 ## Installation
 
