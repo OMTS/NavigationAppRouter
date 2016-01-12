@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
-  NavigationAppRouter checks for installed navigation apps and propose a simple "Go to" API.
+  NavigationAppRouter checks for installed navigation apps and provides a simple "Go to" API.
   
   List of navigation apps supported:
   
