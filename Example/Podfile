@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'NavigationAppRouter_Example', :exclusive => true do
+  pod "NavigationAppRouter", :path => "../"
+end
+
+target 'NavigationAppRouter_Tests', :exclusive => true do
+  pod "NavigationAppRouter", :path => "../"
+
+  
+end

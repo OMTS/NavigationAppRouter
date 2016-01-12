@@ -1,0 +1,6 @@
+framework module NavigationAppRouter {
+  umbrella header "NavigationAppRouter-umbrella.h"
+
+  export *
+  module * { export * }
+}

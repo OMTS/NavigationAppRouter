@@ -1,0 +1,14 @@
+PODS:
+  - NavigationAppRouter (1.0.0)
+
+DEPENDENCIES:
+  - NavigationAppRouter (from `../`)
+
+EXTERNAL SOURCES:
+  NavigationAppRouter:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NavigationAppRouter: b1f671d6a59b000fa410d7eec95680f7f2360212
+
+COCOAPODS: 0.39.0

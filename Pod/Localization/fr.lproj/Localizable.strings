@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  NavigationAppRouter
+
+  Created by Florent Poisson on 12/01/2016.
+*/
+
+"NavigationAppRouter.sheet.title" = "Sélectionnez une application :";
+"NavigationAppRouter.button.title.cancel" = "Annuler";

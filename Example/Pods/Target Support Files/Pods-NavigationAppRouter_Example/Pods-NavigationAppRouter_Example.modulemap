@@ -1,0 +1,6 @@
+framework module Pods_NavigationAppRouter_Example {
+  umbrella header "Pods-NavigationAppRouter_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
