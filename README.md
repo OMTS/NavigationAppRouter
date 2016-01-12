@@ -10,9 +10,9 @@
 NavigationAppRouter is a class, written in Swift, that allows user to choose his prefered navigation app to go to a place.
 
 Third party navigation apps supported:
-	 - Google Maps,
-	 - Waze,
-	 - Citymapper.
+ - Google Maps,
+ - Waze,
+ - Citymapper.
 
 ## Usage
 
