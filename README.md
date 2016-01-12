@@ -16,6 +16,15 @@ Third party navigation apps supported:
 
 ## Usage
 
+#### App configuration
+
+Add third party navigation apps URL schemes in **LSApplicationQueriesSchemes** array of infos.plist file:
+ - *comgooglemaps*
+ - *waze*
+ - *citymapper*
+
+#### Code
+
 ```Swift
 import NavigationAppRouter
 
@@ -23,6 +32,8 @@ let placemark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 48.8674
 
 NavigationAppRouter.goToPlace(placemark, fromViewController: viewController)
 ```
+
+#### Sample project
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
