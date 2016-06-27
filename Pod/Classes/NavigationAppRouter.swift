@@ -14,22 +14,22 @@ import AddressBook
 
 private enum ThirdPartyNavigationApp {
 
-    case GoogleMaps
-    case Waze
-    case CityMapper
+    case googleMaps
+    case waze
+    case cityMapper
 
     /**
      Get name string of third party navigation app.
      */
     func getName() -> String {
         switch self {
-        case .GoogleMaps:
+        case .googleMaps:
             return "Google Maps"
 
-        case Waze:
+        case waze:
             return "Waze"
 
-        case CityMapper:
+        case cityMapper:
             return "CityMapper"
         }
     }
@@ -39,13 +39,13 @@ private enum ThirdPartyNavigationApp {
      */
     func getUrlScheme() -> String {
         switch self {
-        case .GoogleMaps:
+        case .googleMaps:
             return "comgooglemaps://"
 
-        case Waze:
+        case waze:
             return "waze://"
 
-        case CityMapper:
+        case cityMapper:
             return "citymapper://"
         }
     }
@@ -59,15 +59,15 @@ private enum ThirdPartyNavigationApp {
         - Returns: the location parameters formated string
      
      */
-    func getURLSchemeParametersForLocation(location: CLLocationCoordinate2D) -> String {
+    func getURLSchemeParametersForLocation(_ location: CLLocationCoordinate2D) -> String {
         switch self {
-        case .GoogleMaps:
+        case .googleMaps:
             return "?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving"
 
-        case Waze:
+        case waze:
             return "?ll=\(location.latitude),\(location.longitude)&navigate=yes"
 
-        case CityMapper:
+        case cityMapper:
             return "directions?endcoord=\(location.latitude),\(location.longitude)"
         }
     }
@@ -79,7 +79,7 @@ private enum ThirdPartyNavigationApp {
      
      */
     func canOpen() -> Bool {
-        return UIApplication.sharedApplication().canOpenURL(NSURL(string: self.getUrlScheme())!)
+        return UIApplication.shared().canOpenURL(URL(string: self.getUrlScheme())!)
     }
     
     /**
@@ -88,10 +88,10 @@ private enum ThirdPartyNavigationApp {
         - Parameter place: destination as a placemark.
      
      */
-    func goToPlace(place: MKPlacemark) {
+    func goToPlace(_ place: MKPlacemark) {
         let urlStr = self.getUrlScheme() + self.getURLSchemeParametersForLocation(CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
-        if let deepLinkUrl = NSURL(string: urlStr) {
-            UIApplication.sharedApplication().openURL(deepLinkUrl)
+        if let deepLinkUrl = URL(string: urlStr) {
+            UIApplication.shared().openURL(deepLinkUrl)
         }
     }
     
@@ -102,7 +102,7 @@ private enum ThirdPartyNavigationApp {
      
      */
     static func getThirdPartyApplications() -> [ThirdPartyNavigationApp] {
-        return [ThirdPartyNavigationApp.GoogleMaps, ThirdPartyNavigationApp.Waze, ThirdPartyNavigationApp.CityMapper]
+        return [ThirdPartyNavigationApp.googleMaps, ThirdPartyNavigationApp.waze, ThirdPartyNavigationApp.cityMapper]
     }
     
     
@@ -117,7 +117,7 @@ private enum ThirdPartyNavigationApp {
         
         for thirdPartyApp in ThirdPartyNavigationApp.getThirdPartyApplications() {
             if thirdPartyApp.canOpen() {
-                ++count
+                count += 1
             }
         }
         
@@ -140,21 +140,21 @@ public class NavigationAppRouter {
             - fromViewController: view controller presenting the navigation apps if needed.
      
      */
-    public static func goToPlace(place: MKPlacemark, fromViewController viewController: UIViewController) {
+    public static func goToPlace(_ place: MKPlacemark, fromViewController viewController: UIViewController) {
         
         let thirdPartyApplicationInstallations = ThirdPartyNavigationApp.getThirdPartyApplicationInstallations()
         
         if thirdPartyApplicationInstallations > 0 {
 
             // Get bundle for localization strings
-            let bundlePath: String! = NSBundle(forClass: NavigationAppRouter.self).pathForResource("NavigationAppRouter", ofType: "bundle")
-            let bundle: NSBundle! = NSBundle(path: bundlePath)
+            let bundlePath: String! = Bundle(for: NavigationAppRouter.self).pathForResource("NavigationAppRouter", ofType: "bundle")
+            let bundle: Bundle! = Bundle(path: bundlePath)
             
             // Display action sheet
-            let alertController = UIAlertController(title: NSLocalizedString("NavigationAppRouter.sheet.title", tableName: nil, bundle: bundle, comment: ""), message: nil, preferredStyle: .ActionSheet)
+            let alertController = UIAlertController(title: NSLocalizedString("NavigationAppRouter.sheet.title", tableName: nil, bundle: bundle, comment: ""), message: nil, preferredStyle: .actionSheet)
             
             // Default app navigation with Apple Plans
-            let goWithPlans = UIAlertAction(title: "Plans", style: UIAlertActionStyle.Default) { (_) -> Void in
+            let goWithPlans = UIAlertAction(title: "Plans", style: UIAlertActionStyle.default) { (_) -> Void in
                 NavigationAppRouter.goWithAppleMapsToPlace(place)
             }
             alertController.addAction(goWithPlans)
@@ -162,16 +162,16 @@ public class NavigationAppRouter {
             // Third party navigation app management
             for thirdPartyApp in ThirdPartyNavigationApp.getThirdPartyApplications() {
                 if thirdPartyApp.canOpen() {
-                    let goWithThirdPartyApp = UIAlertAction(title: thirdPartyApp.getName(), style: UIAlertActionStyle.Default) { (_) -> Void in
+                    let goWithThirdPartyApp = UIAlertAction(title: thirdPartyApp.getName(), style: UIAlertActionStyle.default) { (_) -> Void in
                         thirdPartyApp.goToPlace(place)
                     }
                     alertController.addAction(goWithThirdPartyApp)
                 }
             }
             
-            let cancel = UIAlertAction(title: NSLocalizedString("NavigationAppRouter.button.title.cancel", tableName: nil, bundle: bundle, comment: ""), style: .Cancel, handler: nil)
+            let cancel = UIAlertAction(title: NSLocalizedString("NavigationAppRouter.button.title.cancel", tableName: nil, bundle: bundle, comment: ""), style: .cancel, handler: nil)
             alertController.addAction(cancel)
-            viewController.presentViewController(alertController, animated: true, completion: nil)
+            viewController.present(alertController, animated: true, completion: nil)
         }
         else {
             NavigationAppRouter.goWithAppleMapsToPlace(place)
@@ -184,9 +184,9 @@ public class NavigationAppRouter {
         - Parameter place: the place to go.
 
      */
-    private static func goWithAppleMapsToPlace(place: MKPlacemark) {
+    private static func goWithAppleMapsToPlace(_ place: MKPlacemark) {
         // Current user location
-        let itemUser = MKMapItem.mapItemForCurrentLocation()
+        let itemUser = MKMapItem.forCurrentLocation()
 
         // Destination
         let itemPlace = MKMapItem(placemark: place)
@@ -194,7 +194,7 @@ public class NavigationAppRouter {
 
         let mapItems = [itemUser, itemPlace]
         let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true]
-        MKMapItem.openMapsWithItems(mapItems, launchOptions: options as? [String : AnyObject])
+        MKMapItem.openMaps(with: mapItems, launchOptions: options as? [String : AnyObject])
     }
     
 }
