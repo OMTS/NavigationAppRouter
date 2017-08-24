@@ -26,10 +26,10 @@ private enum ThirdPartyNavigationApp {
         case .googleMaps:
             return "Google Maps"
 
-        case waze:
+        case .waze:
             return "Waze"
 
-        case cityMapper:
+        case .cityMapper:
             return "CityMapper"
         }
     }
@@ -42,10 +42,10 @@ private enum ThirdPartyNavigationApp {
         case .googleMaps:
             return "comgooglemaps://"
 
-        case waze:
+        case .waze:
             return "waze://"
 
-        case cityMapper:
+        case .cityMapper:
             return "citymapper://"
         }
     }
@@ -64,10 +64,10 @@ private enum ThirdPartyNavigationApp {
         case .googleMaps:
             return "?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving"
 
-        case waze:
+        case .waze:
             return "?ll=\(location.latitude),\(location.longitude)&navigate=yes"
 
-        case cityMapper:
+        case .cityMapper:
             return "directions?endcoord=\(location.latitude),\(location.longitude)"
         }
     }
@@ -79,7 +79,7 @@ private enum ThirdPartyNavigationApp {
      
      */
     func canOpen() -> Bool {
-        return UIApplication.shared().canOpenURL(URL(string: self.getUrlScheme())!)
+        return UIApplication.shared.canOpenURL(URL(string: self.getUrlScheme())!)
     }
     
     /**
@@ -91,7 +91,7 @@ private enum ThirdPartyNavigationApp {
     func goToPlace(_ place: MKPlacemark) {
         let urlStr = self.getUrlScheme() + self.getURLSchemeParametersForLocation(CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude))
         if let deepLinkUrl = URL(string: urlStr) {
-            UIApplication.shared().openURL(deepLinkUrl)
+            UIApplication.shared.openURL(deepLinkUrl)
         }
     }
     
@@ -147,7 +147,7 @@ public class NavigationAppRouter {
         if thirdPartyApplicationInstallations > 0 {
 
             // Get bundle for localization strings
-            let bundlePath: String! = Bundle(for: NavigationAppRouter.self).pathForResource("NavigationAppRouter", ofType: "bundle")
+            let bundlePath: String! = Bundle(for: NavigationAppRouter.self).path(forResource: "NavigationAppRouter", ofType: "bundle")
             let bundle: Bundle! = Bundle(path: bundlePath)
             
             // Display action sheet
@@ -193,8 +193,8 @@ public class NavigationAppRouter {
         itemPlace.name = place.name
 
         let mapItems = [itemUser, itemPlace]
-        let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true]
-        MKMapItem.openMaps(with: mapItems, launchOptions: options as? [String : AnyObject])
+        let options: [String : Any] = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true]
+        MKMapItem.openMaps(with: mapItems, launchOptions: options)
     }
     
 }
