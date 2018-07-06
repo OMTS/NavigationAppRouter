@@ -2,7 +2,7 @@
   "name": "NavigationAppRouter",
   "version": "1.0.0",
   "summary": "NavigationAppRouter checks for installed navigation apps and proposes a 'Go to' function",
-  "description": "NavigationAppRouter checks for installed navigation apps and propose a simple \"Go to\" API.\n\nList of navigation apps supported:\n\n  - Plans (default),\n  - Google Maps,\n  - Waze,\n  - CityMapper.",
+  "description": "NavigationAppRouter checks for installed navigation apps and provides a simple \"Go to\" API.\n\nList of navigation apps supported:\n\n  - Plans (default),\n  - Google Maps,\n  - Waze,\n  - CityMapper.",
   "homepage": "https://github.com/OMTS/NavigationAppRouter",
   "license": "MIT",
   "authors": {
