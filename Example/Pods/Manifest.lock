@@ -6,9 +6,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   NavigationAppRouter:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  NavigationAppRouter: b1f671d6a59b000fa410d7eec95680f7f2360212
+  NavigationAppRouter: 91076fdf6349954b8eec5eea23c35c7bb7be832b
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: c44755789ca5c478aae9f4d38ea43b214e51e958
+
+COCOAPODS: 1.5.3
