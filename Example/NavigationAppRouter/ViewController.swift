@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet var gotoButton: UIButton!
     @IBOutlet var activityLabel: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet weak var addressTF: UITextField!
+
     lazy var locationManager: CLLocationManager? = CLLocationManager()
     var placeAnnotation: MKPointAnnotation!
     lazy var geocoder = CLGeocoder()
@@ -89,7 +90,7 @@ class ViewController: UIViewController {
         
         self.placeAnnotation.coordinate = self.mapView.convert(location, toCoordinateFrom: self.mapView)
     }
-    
+
     @IBAction func goToButtonTapped() {
 
         if self.placeAnnotation == nil {
@@ -119,6 +120,14 @@ class ViewController: UIViewController {
             }
         }
     }
+
+    @IBAction func gotToWithAddresButtonTapped(_ sender: UIButton) {
+        guard addressTF.text?.count ?? 0 > 0 else{
+             return
+        }
+        NavigationAppRouter.goToPlacefromASimpleAddress(address: addressTF.text!, fromViewController: self)
+    }
+
 }
 
 // MARK: - CLLocationManager delegate
@@ -158,5 +167,12 @@ extension ViewController: UIGestureRecognizerDelegate {
             return false
         }
         return true
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }

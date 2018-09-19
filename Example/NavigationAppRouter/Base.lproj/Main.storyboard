@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,17 +50,38 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Or try from a raw address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDI-PK-nwv">
+                                <rect key="frame" x="48" y="661" width="279" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="jdv-1E-3mJ"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHh-8i-YSJ">
+                                <rect key="frame" x="120" y="713" width="135" height="30"/>
+                                <state key="normal" title="Go from an address"/>
+                                <connections>
+                                    <action selector="gotToWithAddresButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="fbC-Ld-tSS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ZPc-7K-1p1" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="8rE-Cp-35C"/>
                             <constraint firstItem="eWO-Om-eli" firstAttribute="top" secondItem="T58-7l-Y1I" secondAttribute="bottom" constant="40" id="91b-OD-f5f"/>
                             <constraint firstItem="3JC-0Z-RSz" firstAttribute="centerX" secondItem="eWO-Om-eli" secondAttribute="centerX" id="Dn7-Ig-Qom"/>
+                            <constraint firstItem="OHh-8i-YSJ" firstAttribute="centerX" secondItem="NDI-PK-nwv" secondAttribute="centerX" id="FB6-9j-IZb"/>
                             <constraint firstItem="3JC-0Z-RSz" firstAttribute="centerY" secondItem="eWO-Om-eli" secondAttribute="centerY" id="NdD-xb-BuY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NDI-PK-nwv" secondAttribute="trailing" constant="32" id="S7v-oO-7eq"/>
                             <constraint firstItem="nsK-cE-JCF" firstAttribute="centerY" secondItem="3JC-0Z-RSz" secondAttribute="centerY" id="TzN-YE-B5c"/>
                             <constraint firstItem="T58-7l-Y1I" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Z9q-Rv-ZrE"/>
+                            <constraint firstItem="NDI-PK-nwv" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="32" id="Zhz-RC-JOU"/>
                             <constraint firstItem="T58-7l-Y1I" firstAttribute="top" secondItem="ZPc-7K-1p1" secondAttribute="bottom" constant="20" id="eb5-cT-i6f"/>
                             <constraint firstAttribute="trailing" secondItem="ZPc-7K-1p1" secondAttribute="trailing" id="eml-gD-QUF"/>
+                            <constraint firstItem="OHh-8i-YSJ" firstAttribute="top" secondItem="NDI-PK-nwv" secondAttribute="bottom" constant="22" id="fhG-Kk-vjT"/>
+                            <constraint firstItem="NDI-PK-nwv" firstAttribute="top" secondItem="3JC-0Z-RSz" secondAttribute="bottom" constant="22.333333333333371" id="fqy-hW-d2I"/>
                             <constraint firstItem="eWO-Om-eli" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="gUr-ER-Qpy"/>
                             <constraint firstItem="3JC-0Z-RSz" firstAttribute="leading" secondItem="nsK-cE-JCF" secondAttribute="trailing" constant="10" id="gq8-QU-nVP"/>
                             <constraint firstItem="ZPc-7K-1p1" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="lYA-sa-bgs"/>
@@ -69,13 +91,14 @@
                     <connections>
                         <outlet property="activityIndicator" destination="nsK-cE-JCF" id="C0I-VW-aVd"/>
                         <outlet property="activityLabel" destination="3JC-0Z-RSz" id="dID-nt-YFe"/>
+                        <outlet property="addressTF" destination="NDI-PK-nwv" id="veR-V4-oea"/>
                         <outlet property="gotoButton" destination="eWO-Om-eli" id="hp0-fl-jQU"/>
                         <outlet property="mapView" destination="ZPc-7K-1p1" id="bA4-hc-3hW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="410" y="312"/>
+            <point key="canvasLocation" x="408.80000000000001" y="311.82266009852219"/>
         </scene>
     </scenes>
 </document>

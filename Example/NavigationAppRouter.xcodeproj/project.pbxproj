@@ -221,6 +221,7 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = YLEKY4JP87;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -229,6 +230,7 @@
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = YLEKY4JP87;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -484,6 +486,7 @@
 			baseConfigurationReference = 5F67F2D1CE2AA3C0F72DE5A7 /* Pods-NavigationAppRouter_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
 				INFOPLIST_FILE = NavigationAppRouter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -498,6 +501,7 @@
 			baseConfigurationReference = BD8F00F083547A854B0BC6AA /* Pods-NavigationAppRouter_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YLEKY4JP87;
 				INFOPLIST_FILE = NavigationAppRouter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -512,6 +516,7 @@
 			baseConfigurationReference = 768110BD9A565613934B1723 /* Pods-NavigationAppRouter_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = YLEKY4JP87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -534,6 +539,7 @@
 			baseConfigurationReference = 36C9560322C534A9613E03EE /* Pods-NavigationAppRouter_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = YLEKY4JP87;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
