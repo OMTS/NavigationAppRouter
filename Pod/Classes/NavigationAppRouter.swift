@@ -12,6 +12,18 @@ import AddressBook
 
 /// Third party navigation app list
 
+extension String {
+
+    func getAddressUrlEncoded(usePlusSign: Bool) -> String? {
+        if usePlusSign {
+            let arrayOfComponents = self.split(separator: " ")
+            let escapedAddress = arrayOfComponents.joined(separator: "+")
+            return escapedAddress.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        } else {
+            return self.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+        }
+    }
+}
 private enum ThirdPartyNavigationApp {
 
     case googleMaps
@@ -71,6 +83,17 @@ private enum ThirdPartyNavigationApp {
             return "directions?endcoord=\(location.latitude),\(location.longitude)"
         }
     }
+
+    func getURLSchemeParametersForAddress(_ address: String) -> String {
+        switch self {
+        case .googleMaps:
+            return "?q=" + (address.getAddressUrlEncoded(usePlusSign: true) ?? "")
+        case .waze:
+            return "?q=" + (address.getAddressUrlEncoded(usePlusSign: false) ?? "")
+        default:
+            return ""
+        }
+    }
     
     /**
      Check if the third party app can be opened by the app.
@@ -94,7 +117,19 @@ private enum ThirdPartyNavigationApp {
             UIApplication.shared.openURL(deepLinkUrl)
         }
     }
-    
+    /**
+     Open the correponding third party navigation requesting searching for an address.
+
+     - Parameter address: destination as an address.
+
+     */
+    func goToAddress(_ address: String) {
+        let urlStr = self.getUrlScheme() + self.getURLSchemeParametersForAddress(address)
+        if let deepLinkUrl = URL(string: urlStr) {
+            UIApplication.shared.openURL(deepLinkUrl)
+        }
+    }
+
     /**
      Get supported third party navigation apps installed on the device.
      
@@ -177,6 +212,38 @@ public class NavigationAppRouter {
             NavigationAppRouter.goWithAppleMapsToPlace(place)
         }
     }
+
+    public static func goToPlacefromASimpleAddress(address: String, fromViewController viewController: UIViewController) {
+        let thirdPartyApplicationInstallations = ThirdPartyNavigationApp.getThirdPartyApplicationInstallations()
+        if thirdPartyApplicationInstallations > 0 {
+            let bundlePath: String! = Bundle(for: NavigationAppRouter.self).path(forResource: "NavigationAppRouter", ofType: "bundle")
+            let bundle: Bundle! = Bundle(path: bundlePath)
+
+            // Display action sheet
+            let alertController = UIAlertController(title: NSLocalizedString("NavigationAppRouter.sheet.title", tableName: nil, bundle: bundle, comment: ""), message: nil, preferredStyle: .actionSheet)
+
+            // Default app navigation with Apple Plans
+            let goWithPlans = UIAlertAction(title: "Plans", style: UIAlertActionStyle.default) { (_) -> Void in
+                NavigationAppRouter.goWithAppleMapsToAddress(address)
+            }
+            alertController.addAction(goWithPlans)
+
+            for thirdPartyApp in ThirdPartyNavigationApp.getThirdPartyApplications() {
+                if thirdPartyApp.canOpen() {
+                    let goWithThirdPartyApp = UIAlertAction(title: thirdPartyApp.getName(), style: UIAlertActionStyle.default) { (_) -> Void in
+                        thirdPartyApp.goToAddress(address)
+                    }
+                    alertController.addAction(goWithThirdPartyApp)
+                }
+            }
+
+            let cancel = UIAlertAction(title: NSLocalizedString("NavigationAppRouter.button.title.cancel", tableName: nil, bundle: bundle, comment: ""), style: .cancel, handler: nil)
+            alertController.addAction(cancel)
+            viewController.present(alertController, animated: true, completion: nil)
+        } else {
+            NavigationAppRouter.goWithAppleMapsToAddress(address)
+        }
+    }
     
     /**
      Open Maps requesting routing to the place.
@@ -196,5 +263,14 @@ public class NavigationAppRouter {
         let options: [String : Any] = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true]
         MKMapItem.openMaps(with: mapItems, launchOptions: options)
     }
-    
+
+    private static func goWithAppleMapsToAddress(_ address: String) {
+        guard let urlEscapedAddress = address.getAddressUrlEncoded(usePlusSign: true),
+            let url = URL(string: "http://maps.apple.com/?address=" + urlEscapedAddress),
+            UIApplication.shared.canOpenURL(url) else {
+                return
+        }
+        UIApplication.shared.openURL(url)
+    }
+
 }
